@@ -12,5 +12,6 @@
     <modules>
         <module>card-service</module>
         <module>user-service</module>
+        <module>gateway</module>
     </modules>
 </project>
