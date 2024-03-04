@@ -6,3 +6,12 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
         namespace: public
+    sentinel:
+      eager: true
+      transport:
+        port: 8719
+        dashboard: localhost:8080
+
+feign:
+  sentinel:
+    enabled: true   ##启用 Sentinel 与 OpenFeign 整合适配器
