@@ -4,6 +4,7 @@ import com.demo.model.Card;
 import com.demo.service.CardService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +36,7 @@ public class CardController {
 
     @GetMapping("/cards/{cardNo}")
     public Card getCardByCardNo(@PathVariable("cardNo") Long cardNo) {
-        logger.info("[UserService] get card by cardNo {}", cardNo);
+        logger.info("[CardService] get card by cardNo {}", cardNo);
         return cardService.getCardByCardNo(cardNo);
     }
 }

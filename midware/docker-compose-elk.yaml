@@ -1,0 +1,39 @@
+version: '2.2'
+services:
+  elasticsearch:
+    image: elasticsearch:7.14.2
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms256m -Xmx256m"
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      - elk
+  kibana:
+    image: kibana:7.14.2
+    container_name: kibana
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - 5601:5601
+    networks:
+      - elk
+  logstash:
+    image: logstash:7.14.2
+    container_name: logstash
+    environment:
+      - node.name=es01
+      - LS_JAVA_OPTS="-Xmx128g -Xms128m -XX:+HeapDumpOnOutOfMemoryError -Djava.security.egd=file:/dev/./urandom"
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+    ports:
+      - 4560:4560
+    networks:
+      - elk
+networks:
+  elk:
+    driver: bridge

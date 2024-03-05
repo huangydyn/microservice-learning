@@ -3,3 +3,6 @@ server:
 spring:
   main:
     allow-circular-references: true
+  sleuth:
+    sampler:
+      probability: 1.0

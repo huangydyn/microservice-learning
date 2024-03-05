@@ -19,7 +19,7 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     public User getUserById(@PathVariable Long id) {
-        logger.info("[UserService] get userid {}", id);
+        logger.info("[UserService] get user, id {}", id);
         return userService.getUserById(id);
     }
 }

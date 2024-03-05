@@ -9,8 +9,8 @@ spring:
       # 新增配置中心地址
       config:
         server-addr: 127.0.0.1:8848
-    sentinel:
-      eager: true
-      transport:
-        port: 8719
-        dashboard: localhost:8080
+#    sentinel:
+#      eager: true
+#      transport:
+#        port: 8719
+#        dashboard: localhost:8080
