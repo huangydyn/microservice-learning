@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <springProperty scope="context" name="applicationName" source="spring.application.name"/>
+
+    <appender name="loguploader" class="com.internetitem.logback.elasticsearch.ElasticsearchAppender">
+        <url>http://47.108.84.228:9200/_bulk</url>
+        <index>app-log</index>
+        <connectTimeout>10000</connectTimeout>
+        <readTimeout>10000</readTimeout>
+        <headers>
+            <header>
+                <name>Content-Type</name>
+                <value>application/json</value>
+            </header>
+        </headers>
+        <properties>
+            <property>
+                <name>app</name>
+                <value>${applicationName:-}</value>
+            </property>
+            <property>
+                <name>level</name>
+                <value>%level</value>
+            </property>
+            <property>
+                <name>traceId</name>
+                <value>%X{traceId:-}</value>
+            </property>
+            <property>
+                <name>spanId</name>
+                <value>%X{spanId:-}</value>
+            </property>
+            <property>
+                <name>msg</name>
+                <value>%message</value>
+            </property>
+            <property>
+                <name>timestamp</name>
+                <value>%date{\"ISO8601\"}</value>
+            </property>
+        </properties>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="loguploader"/>
+    </root>
+</configuration>
